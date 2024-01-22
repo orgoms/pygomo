@@ -6,3 +6,6 @@
 	path = extern/glfw
 	url = ../../glfw/glfw
 	branch = 3.3-stable
+[submodule "extern/glad"]
+	path = extern/glad
+	url = ../../Dav1dde/glad
