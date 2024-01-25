@@ -1,5 +1,5 @@
 [build-system]
-requires = ["pdm-backend"]
+requires = ["pdm-backend", "setuptools"]
 build-backend = "pdm.backend"
 
 [project]
@@ -16,6 +16,11 @@ license = {file = "LICENSE.txt"}
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.build]
+custom-hook = "backend/build.py"
+run-setuptools = true
+source-includes = ["CMakeLists.txt"]
 
 [tool.pdm.version]
 source = "scm"
