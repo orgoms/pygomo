@@ -1,15 +1,20 @@
 cmake_minimum_required(VERSION 3.12)
 project(pyndow)
 
-set(BUILD_SHARED_LIBS ON)
-set(GLFW_BUILD_EXAMPLES OFF)
-set(GLFW_BUILD_TESTS OFF)
-set(GLFW_BUILD_DOCS OFF)
+include(ExternalProject)
 
-if (BIN_DIRECTORY)
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BIN_DIRECTORY})
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BIN_DIRECTORY})
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_DIRECTORY})
+if (NOT BUILD_DIR)
+    set(BUILD_DIR "${CMAKE_HOME_DIRECTORY}/build")
 endif()
 
-add_subdirectory(extern/glfw)
+ExternalProject_Add(_glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw
+    PREFIX "${BUILD_DIR}/extern/glfw"
+    CMAKE_ARGS
+        -DBUILD_SHARED_LIBS=ON
+        -DGLFW_BUILD_EXAMPLES=OFF
+        -DGLFW_BUILD_TESTS=OFF
+        -DGLFW_BUILD_DOCS=OFF
+        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${BUILD_DIR}/ext
+    INSTALL_COMMAND ""
+)
