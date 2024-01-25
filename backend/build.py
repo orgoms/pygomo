@@ -28,8 +28,11 @@ class build_ext(_build_ext):
         self.spawn(["cmake", "-S", root_dir, "-B", build_dir])
         self.spawn(["cmake", "--build", build_dir])
 
-        build_py = self.get_finalized_command("build_py")
-        package_dir = cwd / build_py.get_package_dir("pyndow")
+        if self.inplace:
+            build_py = self.get_finalized_command("build_py")
+            package_dir = Path(build_py.get_package_dir("pyndow"))
+        else:
+            package_dir = Path(self.build_lib) / "pyndow"
 
         ext_path = cwd / "build" / "ext"
         exts = ext_path.rglob("*")
