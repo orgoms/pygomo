@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from setuptools import Command
+from setuptools.command.build import build as _build
 from setuptools.command.build_ext import build_ext as _build_ext
 
 
@@ -31,6 +32,12 @@ class cmake(Command):
             ext.rename(package_dir / ext.name)
 
 
+class build(_build):
+    def run(self: build) -> None:
+        for command in self.sub_commands:
+            self.run_command(command[0])
+
+
 class build_ext(_build_ext):
     def run(self: build_ext) -> None:
         self.run_command("cmake")
@@ -40,6 +47,7 @@ class build_ext(_build_ext):
 def pdm_build_update_setup_kwargs(_, kwargs: dict[str, Any]) -> None:
     kwargs.update(
         cmdclass={
+            "build": build,
             "build_ext": build_ext,
             "cmake": cmake,
         },
