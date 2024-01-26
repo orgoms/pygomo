@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 project(pyndow)
 
+find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
+
 include(ExternalProject)
 
 if (NOT BUILD_DIR)
@@ -15,6 +18,5 @@ ExternalProject_Add(_glfw
         -DGLFW_BUILD_EXAMPLES=OFF
         -DGLFW_BUILD_TESTS=OFF
         -DGLFW_BUILD_DOCS=OFF
-        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=${BUILD_DIR}/ext
     INSTALL_COMMAND ""
 )

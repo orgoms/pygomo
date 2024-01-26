@@ -3,9 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from pybind11.setup_helpers import build_ext as _build_ext
 from setuptools import Command
 from setuptools.command.build import build as _build
-from setuptools.command.build_ext import build_ext as _build_ext
 
 
 class cmake(Command):
@@ -28,7 +28,15 @@ class cmake(Command):
             package_dir = Path(build_ext.build_lib) / "pyndow"
             package_dir.mkdir(parents=True, exist_ok=True)
 
-        for ext in Path("build/ext").rglob("*"):
+        exts = [
+            *Path("build").rglob("*.pyd"),
+            *Path("build").rglob("*.dll"),
+            *Path("build").rglob("*.so"),
+            *Path("build").rglob("*.so.*"),
+            *Path("build").rglob("*.dylib"),
+        ]
+
+        for ext in exts:
             ext.rename(package_dir / ext.name)
 
 
