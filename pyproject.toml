@@ -5,7 +5,7 @@ build-backend = "pdm.backend"
 [project]
 name = "pyndow"
 dynamic = ["version"]
-description = "A modern Python library for window management"
+description = "A modern Python library for OpenGL context/window management."
 authors = [
     {name = "Zenthm", email = "zenthm.dev@gmail.com"},
 ]

@@ -1,4 +1,4 @@
-"""A modern Python library for window management"""
+"""A modern Python library for OpenGL context/window management."""
 
 from pyndow._version import version
 

@@ -1,3 +1,3 @@
 # pyndow
 
-*pyndow* is a modern Python library for window management.
+*pyndow* is a modern Python library for OpenGL context/window management.
