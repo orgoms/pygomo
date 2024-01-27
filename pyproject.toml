@@ -26,3 +26,6 @@ source-includes = ["CMakeLists.txt"]
 source = "scm"
 write_to = "pyndow/_version.py"
 write_template = "version = '{}'"
+
+[tool.pdm.dev-dependencies]
+cmake = ["cmake", "ninja", "pybind11[global]"]
