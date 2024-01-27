@@ -41,6 +41,10 @@ class cmake(Command):
 
 
 class build(_build):
+    def finalize_options(self: build) -> None:
+        super().finalize_options()
+        self.build_lib = self.build_platlib
+
     def run(self: build) -> None:
         for command in self.sub_commands:
             self.run_command(command[0])
