@@ -16,18 +16,29 @@ class cmake(Command):
         pass
 
     def run(self: cmake) -> None:
+        # Needs other commands for specific attributes
         build_ext = self.get_finalized_command("build_ext")
         build_py = self.get_finalized_command("build_py")
 
+        # Configure and build the extensions with CMake in the
+        # provided temporary build directory from build_ext
         self.spawn(["cmake", "-S", ".", "-B", build_ext.build_temp])
         self.spawn(["cmake", "--build", build_ext.build_temp])
 
+        # Determine the destination directory for the built extensions
+        # If building in-place, set the destination to the package directory
+        # Otherwise, set the destination where the build artifacts should be
+        # stored, which will eventually be copied to the directory where
+        # the package will be installed
         if build_ext.inplace:
             package_dir = Path(build_py.get_package_dir("pyndow"))
         else:
             package_dir = Path(build_ext.build_lib) / "pyndow"
+
+        # Ensure that the destination directory exists
         package_dir.mkdir(parents=True, exist_ok=True)
 
+        # Collection of the built extensions
         exts = [
             *Path(build_ext.build_temp).rglob("*.pyd"),
             *Path(build_ext.build_temp).rglob("*.dll"),
@@ -36,6 +47,7 @@ class cmake(Command):
             *Path(build_ext.build_temp).rglob("*.dylib"),
         ]
 
+        # Move the extensions to the destination directory
         for ext in exts:
             ext.replace(package_dir / ext.name)
 
@@ -43,6 +55,10 @@ class cmake(Command):
 class build(_build):
     def finalize_options(self: build) -> None:
         super().finalize_options()
+
+        # This is essential to move the built extensions to a directory
+        # where it will be eventually be copied to the directory where
+        # the package will be installed
         self.build_lib = self.build_platlib
 
     def run(self: build) -> None:
