@@ -19,25 +19,25 @@ class cmake(Command):
         build_ext = self.get_finalized_command("build_ext")
         build_py = self.get_finalized_command("build_py")
 
-        self.spawn(["cmake", "-S", ".", "-B", "build"])
-        self.spawn(["cmake", "--build", "build"])
+        self.spawn(["cmake", "-S", ".", "-B", build_ext.build_temp])
+        self.spawn(["cmake", "--build", build_ext.build_temp])
 
         if build_ext.inplace:
             package_dir = Path(build_py.get_package_dir("pyndow"))
         else:
             package_dir = Path(build_ext.build_lib) / "pyndow"
-            package_dir.mkdir(parents=True, exist_ok=True)
+        package_dir.mkdir(parents=True, exist_ok=True)
 
         exts = [
-            *Path("build").rglob("*.pyd"),
-            *Path("build").rglob("*.dll"),
-            *Path("build").rglob("*.so"),
-            *Path("build").rglob("*.so.*"),
-            *Path("build").rglob("*.dylib"),
+            *Path(build_ext.build_temp).rglob("*.pyd"),
+            *Path(build_ext.build_temp).rglob("*.dll"),
+            *Path(build_ext.build_temp).rglob("*.so"),
+            *Path(build_ext.build_temp).rglob("*.so.*"),
+            *Path(build_ext.build_temp).rglob("*.dylib"),
         ]
 
         for ext in exts:
-            ext.rename(package_dir / ext.name)
+            ext.replace(package_dir / ext.name)
 
 
 class build(_build):
