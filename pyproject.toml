@@ -1,5 +1,5 @@
 [build-system]
-requires = ["pdm-backend", "setuptools", "cmake", "ninja", "pybind11[global]"]
+requires = ["pdm-backend", "setuptools", "cmake", "ninja", "pybind11"]
 build-backend = "pdm.backend"
 
 [project]
@@ -28,4 +28,4 @@ write_to = "pyndow/_version.py"
 write_template = "version = '{}'"
 
 [tool.pdm.dev-dependencies]
-cmake = ["cmake", "ninja", "pybind11[global]"]
+cmake = ["cmake", "ninja", "pybind11"]

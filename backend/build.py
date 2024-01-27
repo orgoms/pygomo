@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import pybind11
 from pybind11.setup_helpers import build_ext as _build_ext
 from setuptools import Command
 from setuptools.command.build import build as _build
@@ -22,7 +23,11 @@ class cmake(Command):
 
         # Configure and build the extensions with CMake in the
         # provided temporary build directory from build_ext
-        self.spawn(["cmake", "-S", ".", "-B", build_ext.build_temp, "-G", "Ninja"])
+        self.spawn(["cmake",
+                    "-S", ".",
+                    "-B", build_ext.build_temp,
+                    "-G", "Ninja",
+                    "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}"])
         self.spawn(["cmake", "--build", build_ext.build_temp])
 
         # Determine the destination directory for the built extensions
