@@ -22,7 +22,7 @@ class cmake(Command):
 
         # Configure and build the extensions with CMake in the
         # provided temporary build directory from build_ext
-        self.spawn(["cmake", "-S", ".", "-B", build_ext.build_temp])
+        self.spawn(["cmake", "-S", ".", "-B", build_ext.build_temp, "-G", "Ninja"])
         self.spawn(["cmake", "--build", build_ext.build_temp])
 
         # Determine the destination directory for the built extensions
