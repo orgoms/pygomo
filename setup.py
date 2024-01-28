@@ -1,22 +1,49 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
 
 import pybind11
-from pybind11.setup_helpers import build_ext as _build_ext
+import setuptools
 from setuptools import Command
 from setuptools.command.build import build as _build
+from setuptools.command.build_ext import build_ext as _build_ext
 
 
-class cmake(Command):
-    def initialize_options(self: cmake) -> None:
+class build(_build):
+    def finalize_options(self: build) -> None:
+        super().finalize_options()
+
+        # This is essential to move the built extensions to a directory
+        # where it will be eventually be copied to the directory where
+        # the package will be installed
+        self.build_lib = self.build_platlib
+
+
+class build_ext(_build_ext):
+    def run(self: build_ext) -> None:
+        # Run the sub-commands before running build_ext, some extensions
+        # may need to be built in the sub-commands prior to running build_ext
+        for cmd_name in self.get_sub_commands():
+            self.run_command(cmd_name)
+
+        super().run()
+
+    sub_commands = [
+        ("build_ext_cmake", None),
+    ]
+
+
+class build_ext_cmake(Command):
+    description = "build C/C++ extensions with CMake"
+    user_options = []
+
+    def initialize_options(self: build_ext_cmake) -> None:
         pass
 
-    def finalize_options(self: cmake) -> None:
+    def finalize_options(self: build_ext_cmake) -> None:
         pass
 
-    def run(self: cmake) -> None:
+    def run(self: build_ext_cmake) -> None:
         # Needs other commands for specific attributes
         build_ext = self.get_finalized_command("build_ext")
         build_py = self.get_finalized_command("build_py")
@@ -57,31 +84,15 @@ class cmake(Command):
             ext.replace(package_dir / ext.name)
 
 
-class build(_build):
-    def finalize_options(self: build) -> None:
-        super().finalize_options()
-
-        # This is essential to move the built extensions to a directory
-        # where it will be eventually be copied to the directory where
-        # the package will be installed
-        self.build_lib = self.build_platlib
-
-    def run(self: build) -> None:
-        for command in self.sub_commands:
-            self.run_command(command[0])
-
-
-class build_ext(_build_ext):
-    def run(self: build_ext) -> None:
-        self.run_command("cmake")
-        super().run()
-
-
-def pdm_build_update_setup_kwargs(_, kwargs: dict[str, Any]) -> None:
-    kwargs.update(
+def setup() -> None:
+    setuptools.setup(
         cmdclass={
             "build": build,
             "build_ext": build_ext,
-            "cmake": cmake,
+            "build_ext_cmake": build_ext_cmake,
         },
     )
+
+
+if __name__ == "__main__":
+    setup()

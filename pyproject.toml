@@ -18,7 +18,6 @@ license = {file = "LICENSE.txt"}
 distribution = true
 
 [tool.pdm.build]
-custom-hook = "backend/build.py"
 run-setuptools = true
 source-includes = ["CMakeLists.txt"]
 
