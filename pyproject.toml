@@ -1,5 +1,11 @@
 [build-system]
-requires = ["pdm-backend", "setuptools", "cmake", "ninja", "pybind11"]
+requires = [
+    "pdm-backend",
+    "setuptools",
+    "cmake",
+    "ninja",
+    "pybind11",
+]
 build-backend = "pdm.backend"
 
 [project]
@@ -17,8 +23,13 @@ license = {file = "LICENSE.txt"}
 [tool.pdm]
 distribution = true
 
+[tool.pdm.options]
+build = ["--no-wheel"]
+install = ["--dev", "--no-isolation"]
+
 [tool.pdm.build]
 run-setuptools = true
+excludes = ["**/extern"]
 source-includes = ["CMakeLists.txt"]
 
 [tool.pdm.version]

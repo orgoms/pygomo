@@ -21,11 +21,12 @@ class build(_build):
 
 class build_ext(_build_ext):
     def run(self: build_ext) -> None:
-        # Run the sub-commands before running build_ext, some extensions
-        # may need to be built in the sub-commands prior to running build_ext
+        # Run the sub-commands before running 'build_ext', some extensions
+        # may need to be built in the sub-commands prior to running 'build_ext'
         for cmd_name in self.get_sub_commands():
             self.run_command(cmd_name)
 
+        # Run the base 'build_ext' command after running the sub-commands
         super().run()
 
     sub_commands = [
@@ -44,44 +45,41 @@ class build_ext_cmake(Command):
         pass
 
     def run(self: build_ext_cmake) -> None:
-        # Needs other commands for specific attributes
         build_ext = self.get_finalized_command("build_ext")
         build_py = self.get_finalized_command("build_py")
 
-        # Configure and build the extensions with CMake in the
-        # provided temporary build directory from build_ext
-        self.spawn(["cmake",
-                    "-S", ".",
-                    "-B", build_ext.build_temp,
-                    "-G", "Ninja",
-                    "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}"])
-        self.spawn(["cmake", "--build", build_ext.build_temp])
+        # The 'source_dir' is typically the current working directory
+        source_dir = Path().absolute()
 
-        # Determine the destination directory for the built extensions
-        # If building in-place, set the destination to the package directory
-        # Otherwise, set the destination where the build artifacts should be
-        # stored, which will eventually be copied to the directory where
-        # the package will be installed
-        if build_ext.inplace:
-            package_dir = Path(build_py.get_package_dir("pyndow"))
+        # If not inplace, set the build and output directories to the
+        # provided directories from 'build_ext', otherwise set the build
+        # and output directories to the 'build' directory from 'source_dir'
+        # and where the pyndow package is stored
+        if not build_ext.inplace:
+            build_dir = Path(build_ext.build_temp).absolute()
+            output_dir = Path(build_ext.build_lib).absolute()
         else:
-            package_dir = Path(build_ext.build_lib) / "pyndow"
+            build_dir = Path(source_dir / "build").absolute()
+            output_dir = Path(build_py.get_package_dir("pyndow")).absolute()
+        output_dir /= "extern"
 
-        # Ensure that the destination directory exists
-        package_dir.mkdir(parents=True, exist_ok=True)
+        # Ensure that these directories exists
+        source_dir.mkdir(parents=True, exist_ok=True)
+        build_dir.mkdir(parents=True, exist_ok=True)
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Collection of the built extensions
-        exts = [
-            *Path(build_ext.build_temp).rglob("*.pyd"),
-            *Path(build_ext.build_temp).rglob("*.dll"),
-            *Path(build_ext.build_temp).rglob("*.so"),
-            *Path(build_ext.build_temp).rglob("*.so.*"),
-            *Path(build_ext.build_temp).rglob("*.dylib"),
-        ]
+        # Configure CMake with the source and build directories
+        self.spawn([
+            "cmake",
+            "-S", str(source_dir),
+            "-B", str(build_dir),
+            "-G", "Ninja",
+            "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}",
+        ])
 
-        # Move the extensions to the destination directory
-        for ext in exts:
-            ext.replace(package_dir / ext.name)
+        # Build CMake to build the extensions
+        self.spawn(["cmake", "--build", str(build_dir)])
+        self.spawn(["cmake", "--install", str(build_dir), "--prefix", str(output_dir)])
 
 
 def setup() -> None:
