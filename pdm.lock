@@ -5,7 +5,7 @@
 groups = ["default", "cmake"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:2b03aee2551dd5a7b83beaf1422a9b2842435e57696690dd886bf279a3d4ea38"
+content_hash = "sha256:9c64041ceeba8da47f34cec2b1abf69cbf2a3ccdb3664e3c20f4d380a56fdcad"
 
 [[package]]
 name = "cmake"
@@ -61,33 +61,6 @@ version = "2.11.1"
 requires_python = ">=3.6"
 summary = "Seamless operability between C++11 and Python"
 groups = ["cmake"]
-files = [
-    {file = "pybind11-2.11.1-py3-none-any.whl", hash = "sha256:33cdd02a6453380dd71cc70357ce388ad1ee8d32bd0e38fc22b273d050aa29b3"},
-    {file = "pybind11-2.11.1.tar.gz", hash = "sha256:00cd59116a6e8155aecd9174f37ba299d1d397ed4a6b86ac1dfe01b3e40f2cc4"},
-]
-
-[[package]]
-name = "pybind11-global"
-version = "2.11.1"
-requires_python = ">=3.6"
-summary = "Seamless operability between C++11 and Python"
-groups = ["cmake"]
-files = [
-    {file = "pybind11_global-2.11.1-py3-none-any.whl", hash = "sha256:9664c675af3225b86f0d93873fe76f6c2d2966bc9ed64276fb0f73dfcb181806"},
-    {file = "pybind11_global-2.11.1.tar.gz", hash = "sha256:1ba797947bd375f48717377117fc5d31f2c8b26cf8f5e2a907ab38f380b75324"},
-]
-
-[[package]]
-name = "pybind11"
-version = "2.11.1"
-extras = ["global"]
-requires_python = ">=3.6"
-summary = "Seamless operability between C++11 and Python"
-groups = ["cmake"]
-dependencies = [
-    "pybind11-global==2.11.1",
-    "pybind11==2.11.1",
-]
 files = [
     {file = "pybind11-2.11.1-py3-none-any.whl", hash = "sha256:33cdd02a6453380dd71cc70357ce388ad1ee8d32bd0e38fc22b273d050aa29b3"},
     {file = "pybind11-2.11.1.tar.gz", hash = "sha256:00cd59116a6e8155aecd9174f37ba299d1d397ed4a6b86ac1dfe01b3e40f2cc4"},
