@@ -18,6 +18,13 @@ class build(_build):
         # the package will be installed
         self.build_lib = self.build_platlib
 
+        for index, cmd in enumerate(self.sub_commands):
+            self.sub_commands[index] = (cmd[0], None)
+
+    def run(self: build) -> None:
+        for cmd in self.sub_commands:
+            self.run_command(cmd[0])
+
 
 class build_ext(_build_ext):
     def run(self: build_ext) -> None:
