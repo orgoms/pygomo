@@ -1,6 +1,9 @@
+# ruff: noqa: N801
+
 from __future__ import annotations
 
 from pathlib import Path
+from typing import ClassVar
 
 import pybind11
 import setuptools
@@ -36,14 +39,14 @@ class build_ext(_build_ext):
         # Run the base 'build_ext' command after running the sub-commands
         super().run()
 
-    sub_commands = [
+    sub_commands: ClassVar = [
         ("build_ext_cmake", None),
     ]
 
 
 class build_ext_cmake(Command):
     description = "build C/C++ extensions with CMake"
-    user_options = []
+    user_options: ClassVar = []
 
     def initialize_options(self: build_ext_cmake) -> None:
         pass
