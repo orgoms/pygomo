@@ -67,7 +67,7 @@ class build_ext_cmake(Command):
         # and where the pyndow package is stored
         if not build_ext.inplace:
             build_dir = Path(build_ext.build_temp).absolute()
-            package_dir = Path(build_ext.build_lib).absolute()
+            package_dir = Path(build_ext.build_lib).absolute() / "pyndow"
         else:
             build_dir = Path(source_dir / "build").absolute()
             package_dir = Path(build_py.get_package_dir("pyndow")).absolute()

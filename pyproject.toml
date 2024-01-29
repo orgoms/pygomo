@@ -25,8 +25,8 @@ distribution = true
 
 [tool.pdm.build]
 run-setuptools = true
-excludes = ["**/extern"]
-source-includes = ["CMakeLists.txt"]
+excludes = ["src/**/extern", "src/**/*.cpp"]
+source-includes = ["CMakeLists.txt", "src/**/*.cpp"]
 
 [tool.pdm.version]
 source = "scm"
@@ -34,7 +34,7 @@ write_to = "pyndow/_version.py"
 write_template = "version = '{}'"
 
 [tool.pdm.dev-dependencies]
-cmake = ["cmake", "ninja", "pybind11"]
+build = ["cmake", "ninja", "pybind11"]
 docs = ["mkdocs", "mkdocs-material"]
 lint = ["ruff"]
 
