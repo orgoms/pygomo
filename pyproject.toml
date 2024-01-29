@@ -37,3 +37,11 @@ write_template = "version = '{}'"
 cmake = ["cmake", "ninja", "pybind11"]
 docs = ["mkdocs", "mkdocs-material"]
 lint = ["ruff"]
+
+[tool.ruff]
+select = ["ALL"]
+ignore = [
+    "D1",
+    "D203",
+    "D212",
+]
