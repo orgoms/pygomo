@@ -36,3 +36,4 @@ write_template = "version = '{}'"
 [tool.pdm.dev-dependencies]
 cmake = ["cmake", "ninja", "pybind11"]
 docs = ["mkdocs", "mkdocs-material"]
+lint = ["ruff"]
