@@ -34,6 +34,7 @@ write_to = "pyndow/_version.py"
 write_template = "version = '{}'"
 
 [tool.pdm.dev-dependencies]
+dev = ["pre-commit"] # Default
 build = ["cmake", "ninja", "pybind11"]
 docs = ["mkdocs", "mkdocs-material"]
 lint = ["ruff"]
