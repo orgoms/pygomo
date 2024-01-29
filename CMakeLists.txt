@@ -20,3 +20,12 @@ FetchContent_Declare(glfw
     GIT_TAG 3.3-stable
 )
 FetchContent_MakeAvailable(glfw)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PACKAGE_DIR})
+
+pybind11_add_module(pyndow-glfw src/pyndow/glfw.cpp)
+
+set_target_properties(pyndow-glfw
+    PROPERTIES
+    OUTPUT_NAME glfw
+)
