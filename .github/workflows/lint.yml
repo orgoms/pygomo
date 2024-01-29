@@ -4,9 +4,15 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "pyproject.toml"
+      - "**/*.py"
   pull_request:
     branches:
       - main
+    paths:
+      - "pyproject.toml"
+      - "**/*.py"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
