@@ -29,7 +29,7 @@ follow these steps:
    ```
 3. **Change the directory**:
    ```bash
-   cd orgoms
+   cd pyndow
    ```
 4. **Add the upstream repository** as a remote:
      ```bash
@@ -38,8 +38,11 @@ follow these steps:
 5. **Install `pdm`** by following the [installation instructions][pdm-installation]
 6. **Install the dependencies** from the lock file:
    ```bash
-   pdm install
+   pdm install --dev --no-self
+   pdm install --no-isolation
    ```
+
+**NOTE**: It's recommended to create a virtual environment first.
 
 ### Making Changes
 
