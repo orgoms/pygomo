@@ -6,5 +6,5 @@ build:
     python: "3"
   commands:
     - python -m pip install pdm
-    - python -m pdm install --dev --no-self --no-isolation
+    - python -m pdm install --dev --no-self -G docs
     - python -m pdm run mkdocs build -d _readthedocs/html
