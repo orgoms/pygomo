@@ -67,11 +67,11 @@ class build_ext_cmake(Command):
         # and where the pyndow package is stored
         if not build_ext.inplace:
             build_dir = Path(build_ext.build_temp).absolute()
-            output_dir = Path(build_ext.build_lib).absolute()
+            package_dir = Path(build_ext.build_lib).absolute()
         else:
             build_dir = Path(source_dir / "build").absolute()
-            output_dir = Path(build_py.get_package_dir("pyndow")).absolute()
-        output_dir /= "extern"
+            package_dir = Path(build_py.get_package_dir("pyndow")).absolute()
+        output_dir = package_dir / "extern"
 
         # Ensure that these directories exists
         source_dir.mkdir(parents=True, exist_ok=True)
@@ -85,6 +85,8 @@ class build_ext_cmake(Command):
             "-B", str(build_dir),
             "-G", "Ninja",
             "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}",
+            "-D", f"PACKAGE_DIR={package_dir}",
+            "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=ON",  # for LSP
         ])
 
         # Build CMake to build the extensions
