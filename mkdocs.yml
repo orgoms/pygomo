@@ -29,3 +29,16 @@ theme:
       toggle:
         icon: material/toggle-switch-off
         name: Switch to system preference
+  features:
+    - navigation.footer
+    - navigation.indexes
+    - navigation.path
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - search
