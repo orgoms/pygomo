@@ -23,10 +23,6 @@ license = {file = "LICENSE.txt"}
 [tool.pdm]
 distribution = true
 
-[tool.pdm.options]
-build = ["--no-wheel"]
-install = ["--dev", "--no-isolation"]
-
 [tool.pdm.build]
 run-setuptools = true
 excludes = ["**/extern"]
