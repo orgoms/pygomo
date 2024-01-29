@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default", "build", "dev", "docs", "lint"]
+groups = ["default", "build", "dev", "docs", "format", "lint"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:47e826c078ee96055057f30d8585d10efb68a530c88fcaaefa8091fad9191365"
+content_hash = "sha256:3afae37d8f4dd30d5f68567d5fe8a6dd6ae3761746b3469e63fd991cdf8f6fb5"
 
 [[package]]
 name = "babel"
@@ -742,7 +742,7 @@ name = "ruff"
 version = "0.1.14"
 requires_python = ">=3.7"
 summary = "An extremely fast Python linter and code formatter, written in Rust."
-groups = ["lint"]
+groups = ["format", "lint"]
 files = [
     {file = "ruff-0.1.14-py3-none-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:96f76536df9b26622755c12ed8680f159817be2f725c17ed9305b472a757cdbb"},
     {file = "ruff-0.1.14-py3-none-macosx_10_12_x86_64.whl", hash = "sha256:ab3f71f64498c7241123bb5a768544cf42821d2a537f894b22457a543d3ca7a9"},
