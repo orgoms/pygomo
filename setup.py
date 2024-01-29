@@ -79,6 +79,7 @@ class build_ext_cmake(Command):
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Configure CMake with the source and build directories
+        # fmt: off
         self.spawn([
             "cmake",
             "-S", str(source_dir),
@@ -88,6 +89,7 @@ class build_ext_cmake(Command):
             "-D", f"PACKAGE_DIR={package_dir}",
             "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=ON",  # for LSP
         ])
+        # fmt: on
 
         # Build CMake to build the extensions
         self.spawn(["cmake", "--build", str(build_dir)])
