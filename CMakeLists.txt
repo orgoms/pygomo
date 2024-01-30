@@ -25,6 +25,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PACKAGE_DIR})
 
 pybind11_add_module(pyndow-glfw src/pyndow/glfw.cpp)
 
+target_link_libraries(pyndow-glfw PRIVATE glfw)
 set_target_properties(pyndow-glfw
     PROPERTIES
     OUTPUT_NAME glfw
