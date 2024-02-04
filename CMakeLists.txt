@@ -24,9 +24,15 @@ FetchContent_MakeAvailable(glfw)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PACKAGE_DIR})
 
 pybind11_add_module(pygomo-glfw src/pygomo/glfw.cpp)
+pybind11_add_module(pygomo-math src/pygomo/math.cpp)
 
-target_link_libraries(pygomo-glfw PRIVATE glfw)
 set_target_properties(pygomo-glfw
     PROPERTIES
     OUTPUT_NAME glfw
 )
+set_target_properties(pygomo-math
+    PROPERTIES
+    OUTPUT_NAME math
+)
+
+target_link_libraries(pygomo-glfw PRIVATE glfw)
