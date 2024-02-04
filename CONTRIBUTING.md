@@ -25,15 +25,15 @@ follow these steps:
 1. **Fork the repository** by clicking the "Fork" button [here][repository]
 2. **Clone the forked repository** to your local machine:
    ```bash
-   git clone https://github.com/your-username/pyndow.git
+   git clone https://github.com/your-username/pygomo.git
    ```
 3. **Change the directory**:
    ```bash
-   cd pyndow
+   cd pygomo
    ```
 4. **Add the upstream repository** as a remote:
      ```bash
-     git remote add upstream https://github.com/orgoms/pyndow.git
+     git remote add upstream https://github.com/orgoms/pygomo.git
      ```
 5. **Install `pdm`** by following the [installation instructions][pdm-installation]
 6. **Install the dependencies** from the lock file:
@@ -125,9 +125,9 @@ By contributing to this project, you agree that your contributions will be
 licensed under the BSD 2-Clause “Simplified” License - see the [LICENSE.txt](license)
 file for details.
 
-[repository]: https://github.com/orgoms/pyndow
-[issues]: https://github.com/orgoms/pyndow/issues
-[pulls]: https://github.com/orgoms/pyndow/pulls
+[repository]: https://github.com/orgoms/pygomo
+[issues]: https://github.com/orgoms/pygomo/issues
+[pulls]: https://github.com/orgoms/pygomo/pulls
 [pdm-installation]: https://pdm-project.org/latest/#installation
-[code-of-conduct]: https://github.com/orgoms/pyndow/blob/main/CODE_OF_CONDUCT.md
-[license]: https://github.com/orgoms/pyndow/blob/main/LICENSE.txt
+[code-of-conduct]: https://github.com/orgoms/pygomo/blob/main/CODE_OF_CONDUCT.md
+[license]: https://github.com/orgoms/pygomo/blob/main/LICENSE.txt

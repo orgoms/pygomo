@@ -9,9 +9,9 @@ requires = [
 build-backend = "pdm.backend"
 
 [project]
-name = "pyndow"
+name = "pygomo"
 dynamic = ["version"]
-description = "A modern Python library for OpenGL context/window management."
+description = "A modern Python library for game development."
 authors = [
     {name = "Zenthm", email = "zenthm.dev@gmail.com"},
 ]
@@ -30,7 +30,7 @@ source-includes = ["CMakeLists.txt", "src/**/*.cpp"]
 
 [tool.pdm.version]
 source = "scm"
-write_to = "pyndow/_version.py"
+write_to = "pygomo/_version.py"
 write_template = "version = '{}'"
 
 [tool.pdm.dev-dependencies]

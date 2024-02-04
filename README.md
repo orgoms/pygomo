@@ -1,3 +1,3 @@
-# pyndow
+# pygomo
 
-The ***pyndow*** Python library is made for OpenGL context/window management.
+The ***pygomo*** Python library is made for game development.

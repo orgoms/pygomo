@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(pyndow)
+project(pygomo)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -23,10 +23,10 @@ FetchContent_MakeAvailable(glfw)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PACKAGE_DIR})
 
-pybind11_add_module(pyndow-glfw src/pyndow/glfw.cpp)
+pybind11_add_module(pygomo-glfw src/pygomo/glfw.cpp)
 
-target_link_libraries(pyndow-glfw PRIVATE glfw)
-set_target_properties(pyndow-glfw
+target_link_libraries(pygomo-glfw PRIVATE glfw)
+set_target_properties(pygomo-glfw
     PROPERTIES
     OUTPUT_NAME glfw
 )

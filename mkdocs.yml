@@ -1,9 +1,9 @@
-site_name: pyndow
-site_url: https://github.com/orgoms/pyndow
+site_name: pygomo
+site_url: https://github.com/orgoms/pygomo
 site_author: Zenthm
-site_description: A modern Python library for OpenGL context/window management
+site_description: A modern Python library for game development.
 copyright: Copyright &copy 2024-present Zenthm <zenthm.dev@gmail.com>
-repo_url: https://github.com/orgoms/pyndow
+repo_url: https://github.com/orgoms/pygomo
 repo_name: GitHub
 edit_uri_template: blob/main/CONTRIBUTING.md
 

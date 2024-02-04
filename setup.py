@@ -64,13 +64,13 @@ class build_ext_cmake(Command):
         # If not inplace, set the build and output directories to the
         # provided directories from 'build_ext', otherwise set the build
         # and output directories to the 'build' directory from 'source_dir'
-        # and where the pyndow package is stored
+        # and where the pygomo package is stored
         if not build_ext.inplace:
             build_dir = Path(build_ext.build_temp).absolute()
-            package_dir = Path(build_ext.build_lib).absolute() / "pyndow"
+            package_dir = Path(build_ext.build_lib).absolute() / "pygomo"
         else:
             build_dir = Path(source_dir / "build").absolute()
-            package_dir = Path(build_py.get_package_dir("pyndow")).absolute()
+            package_dir = Path(build_py.get_package_dir("pygomo")).absolute()
         output_dir = package_dir / "extern"
 
         # Ensure that these directories exists
