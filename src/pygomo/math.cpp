@@ -33,6 +33,12 @@ public:
     double width, height;
 };
 
+class Dimension3D {
+public:
+    Dimension3D(double width = 0.0, double height = 0.0, double depth = 0.0) : width(width), height(height), depth(depth) {}
+    double width, height, depth;
+};
+
 PYBIND11_MODULE(math, mod) {
     mod.doc() = "Math module for pygomo";
     py::class_<Vector2D>(mod, "Vector2D")
@@ -57,4 +63,9 @@ PYBIND11_MODULE(math, mod) {
         .def(py::init<double, double>(), "width"_a = 0.0, "height"_a = 0.0)
         .def_readwrite("width", &Dimension2D::width)
         .def_readwrite("height", &Dimension2D::height);
+    py::class_<Dimension3D>(mod, "Dimension3D")
+        .def(py::init<double, double, double>(), "width"_a = 0.0, "height"_a = 0.0, "depth"_a = 0.0)
+        .def_readwrite("width", &Dimension3D::width)
+        .def_readwrite("height", &Dimension3D::height)
+        .def_readwrite("depth", &Dimension3D::depth);
 }
