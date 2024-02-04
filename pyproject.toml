@@ -5,6 +5,7 @@ requires = [
     "cmake",
     "ninja",
     "pybind11",
+    "Jinja2",
 ]
 build-backend = "pdm.backend"
 
