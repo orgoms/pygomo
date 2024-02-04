@@ -45,6 +45,12 @@ public:
     double x, y, width, height;
 };
 
+class Rect3D {
+public:
+    Rect3D(double x, double y, double z, double width, double height, double depth) : x(x), y(y), z(z), width(width), height(height), depth(depth) {}
+    double x, y, z, width, height, depth;
+};
+
 PYBIND11_MODULE(math, mod) {
     mod.doc() = "Math module for pygomo";
     py::class_<Vector2D>(mod, "Vector2D")
@@ -80,4 +86,12 @@ PYBIND11_MODULE(math, mod) {
         .def_readwrite("y", &Rect2D::y)
         .def_readwrite("width", &Rect2D::width)
         .def_readwrite("height", &Rect2D::height);
+    py::class_<Rect3D>(mod, "Rect3D")
+        .def(py::init<double, double, double, double, double, double>(), "x"_a = 0.0, "y"_a = 0.0, "z"_a = 0.0, "width"_a = 0.0, "height"_a = 0.0, "depth"_a = 0.0)
+        .def_readwrite("x", &Rect3D::x)
+        .def_readwrite("y", &Rect3D::y)
+        .def_readwrite("z", &Rect3D::z)
+        .def_readwrite("width", &Rect3D::width)
+        .def_readwrite("height", &Rect3D::height)
+        .def_readwrite("depth", &Rect3D::depth);
 }
