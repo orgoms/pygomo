@@ -25,6 +25,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PACKAGE_DIR})
 
 pybind11_add_module(pygomo-glfw src/pygomo/glfw.cpp)
 pybind11_add_module(pygomo-math src/pygomo/math.cpp)
+pybind11_add_module(pygomo-time src/pygomo/time.cpp)
 
 set_target_properties(pygomo-glfw
     PROPERTIES
@@ -33,6 +34,10 @@ set_target_properties(pygomo-glfw
 set_target_properties(pygomo-math
     PROPERTIES
     OUTPUT_NAME math
+)
+set_target_properties(pygomo-time
+    PROPERTIES
+    OUTPUT_NAME time
 )
 
 target_link_libraries(pygomo-glfw PRIVATE glfw)
