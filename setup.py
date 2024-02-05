@@ -87,6 +87,14 @@ class build_ext_cmake(Command):
             "-G", "Ninja",
             "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}",
             "-D", f"PACKAGE_DIR={package_dir}",
+            "-D", "GLAD_PROFILE=core",
+            "-D", "GLAD_API=gl=3.3",
+            "-D", "GLAD_GENERATOR=c",
+            "-D", "GLAD_INSTALL=ON",
+            "-D", "GLFW_BUILD_EXAMPLES=OFF",
+            "-D", "GLFW_BUILD_TESTS=OFF",
+            "-D", "GLFW_BUILD_DOCS=OFF",
+            "-D", "GLFW_INSTALL=ON",
             "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=ON",  # for LSP
         ])
         # fmt: on
