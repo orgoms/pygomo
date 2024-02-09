@@ -7,36 +7,21 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(FetchContent)
-
 find_package(Python COMPONENTS Interpreter Development REQUIRED)
 find_package(pybind11 CONFIG REQUIRED)
 
-FetchContent_Declare(glad
-    GIT_REPOSITORY https://github.com/Dav1dde/glad.git
-)
-FetchContent_Declare(glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.3-stable
-)
-
-FetchContent_MakeAvailable(glad)
-FetchContent_MakeAvailable(glfw)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PACKAGE_DIR})
+include_directories("${PACKAGE_DIR}/include")
+link_directories("${PACKAGE_DIR}/lib")
 
 pybind11_add_module(pygomo-core src/pygomo/core.cpp)
-pybind11_add_module(pygomo-glfw src/pygomo/glfw.cpp)
 pybind11_add_module(pygomo-math src/pygomo/math.cpp)
 pybind11_add_module(pygomo-time src/pygomo/time.cpp)
 
 set_target_properties(pygomo-core
     PROPERTIES
+    BUILD_WITH_INSTALL_RPATH TRUE
+    INSTALL_RPATH "${PACKAGE_DIR}/lib"
     OUTPUT_NAME core
-)
-set_target_properties(pygomo-glfw
-    PROPERTIES
-    OUTPUT_NAME glfw
 )
 set_target_properties(pygomo-math
     PROPERTIES
@@ -47,5 +32,13 @@ set_target_properties(pygomo-time
     OUTPUT_NAME time
 )
 
-target_link_libraries(pygomo-core PRIVATE glfw)
-target_link_libraries(pygomo-glfw PRIVATE glfw)
+target_link_libraries(pygomo-core PRIVATE glad glfw)
+
+install(
+    TARGETS
+    pygomo-core
+    pygomo-math
+    pygomo-time
+    DESTINATION
+    ${PACKAGE_DIR}
+)

@@ -71,21 +71,19 @@ class build_ext_cmake(Command):
         else:
             build_dir = Path(source_dir / "build").absolute()
             package_dir = Path(build_py.get_package_dir("pygomo")).absolute()
-        output_dir = package_dir / "extern"
 
         # Ensure that these directories exists
+        package_dir.mkdir(parents=True, exist_ok=True)
         source_dir.mkdir(parents=True, exist_ok=True)
         build_dir.mkdir(parents=True, exist_ok=True)
-        output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Configure CMake with the source and build directories
         # fmt: off
+        # Configure the project's extern with CMake
         self.spawn([
             "cmake",
-            "-S", str(source_dir),
-            "-B", str(build_dir),
+            "-S", str(source_dir / "extern"),
+            "-B", str(build_dir / "extern"),
             "-G", "Ninja",
-            "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}",
             "-D", f"PACKAGE_DIR={package_dir}",
             "-D", "GLAD_PROFILE=core",
             "-D", "GLAD_API=gl=3.3",
@@ -97,11 +95,28 @@ class build_ext_cmake(Command):
             "-D", "GLFW_INSTALL=ON",
             "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=ON",  # for LSP
         ])
-        # fmt: on
 
-        # Build CMake to build the extensions
-        self.spawn(["cmake", "--build", str(build_dir)])
-        self.spawn(["cmake", "--install", str(build_dir), "--prefix", str(output_dir)])
+        # Build and install the project's extern with CMake
+        self.spawn(["cmake", "--build",   str(build_dir / "extern")])
+        self.spawn(["cmake", "--install", str(build_dir / "extern"),
+                             "--prefix",  str(package_dir)])
+
+        # Configure the project with CMake
+        self.spawn([
+            "cmake",
+            "-S", str(source_dir),
+            "-B", str(build_dir),
+            "-G", "Ninja",
+            "-D", f"pybind11_DIR={pybind11.get_cmake_dir()}",
+            "-D", f"PACKAGE_DIR={package_dir}",
+            "-D", "CMAKE_EXPORT_COMPILE_COMMANDS=ON",  # for LSP
+        ])
+
+        # Build and install the project with CMake
+        self.spawn(["cmake", "--build",   str(build_dir)])
+        self.spawn(["cmake", "--install", str(build_dir),
+                             "--prefix",  str(package_dir)])
+        # fmt: on
 
 
 def setup() -> None:
