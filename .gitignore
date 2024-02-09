@@ -1,9 +1,6 @@
 # Generated _version.py file
 _version.py
 
-# External directory
-extern/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
