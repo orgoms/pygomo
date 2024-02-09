@@ -1,7 +1,5 @@
 #define GLFW_INCLUDED_NONE
-
 #include <GLFW/glfw3.h>
-
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;
