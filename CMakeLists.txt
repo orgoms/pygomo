@@ -16,6 +16,7 @@ link_directories("${PACKAGE_DIR}/lib")
 pybind11_add_module(pygomo-core src/pygomo/core.cpp)
 pybind11_add_module(pygomo-math src/pygomo/math.cpp)
 pybind11_add_module(pygomo-time src/pygomo/time.cpp)
+pybind11_add_module(pygomo-window src/pygomo/window.cpp)
 
 set_target_properties(pygomo-core
     PROPERTIES
@@ -30,6 +31,10 @@ set_target_properties(pygomo-math
 set_target_properties(pygomo-time
     PROPERTIES
     OUTPUT_NAME time
+)
+set_target_properties(pygomo-window
+    PROPERTIES
+    OUTPUT_NAME window
 )
 
 target_link_libraries(pygomo-core PRIVATE glad glfw)
