@@ -12,11 +12,16 @@ public:
         this->window = glfwCreateWindow(640, 480, "Window", NULL, NULL);
     }
 
+    void destroy() {
+        glfwDestroyWindow(this->window);
+    }
+
     GLFWwindow *window;
 };
 
 PYBIND11_MODULE(window, mod) {
     mod.doc() = "Window module for pygomo.";
     py::class_<Window>(mod, "Window")
-        .def(py::init<>());
+        .def(py::init<>())
+        .def("destroy", &Window::destroy);
 }
