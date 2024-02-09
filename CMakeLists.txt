@@ -34,16 +34,20 @@ set_target_properties(pygomo-time
 )
 set_target_properties(pygomo-window
     PROPERTIES
+    BUILD_WITH_INSTALL_RPATH TRUE
+    INSTALL_RPATH "${PACKAGE_DIR}/lib"
     OUTPUT_NAME window
 )
 
 target_link_libraries(pygomo-core PRIVATE glad glfw)
+target_link_libraries(pygomo-window PRIVATE glfw)
 
 install(
     TARGETS
     pygomo-core
     pygomo-math
     pygomo-time
+    pygomo-window
     DESTINATION
     ${PACKAGE_DIR}
 )
