@@ -1,6 +1,10 @@
 # Generated _version.py file
 _version.py
 
+# Package's include and lib directories
+include/
+lib/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
