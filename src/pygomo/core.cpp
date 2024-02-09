@@ -10,7 +10,12 @@ void init() {
     gladLoadGL();
 }
 
+void terminate() {
+    glfwTerminate();
+}
+
 PYBIND11_MODULE(core, mod) {
     mod.doc() = "Core module for pygomo.";
     mod.def("init", &init);
+    mod.def("terminate", &terminate);
 }
